@@ -6,6 +6,7 @@
 #include <vector>
 using namespace std;
 
+//有效的数独输入
 class Solution {
 public:
 	bool isValidSudoku(vector<vector<char>>& board) {
@@ -64,6 +65,7 @@ public:
 	}
 };
 
+//旋转矩阵
 class Solution1 {
 public:
 	void swap(int &left, int &right)
@@ -93,7 +95,7 @@ public:
 	}
 };
 
-int _tmain(int argc, _TCHAR* argv[])
+void TestSolution1()
 {
 	vector<vector<int>> num;
 	vector<int> temp;
@@ -120,11 +122,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 	num.push_back(temp);
 	temp.clear();
-
-	
-
-	//Solution().isValidSudoku(num);
 	Solution1().rotate(num);
+	//do something to see elements in num
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	TestSolution1();
 
 	return 0;
 }

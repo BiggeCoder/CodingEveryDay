@@ -44,7 +44,7 @@ public:
 void TestSolution1()
 {
     int a = 1234;
-    int rev = Solution().reverse(a);
+    int rev = Solution1().reverse(a);
 }
 
 //字符串中的第一个唯一字符
@@ -190,6 +190,121 @@ void TestSolution4()
 {
     string str = "A man, a plan, a canal: Panama";
     bool isPalindrome = Solution3().isPalindrome(str);
+}
+
+//atoi转换
+class Solution5 {
+public:
+    int valuedAtoi(vector<char> &value)
+    {
+        if(value.size() == 0)
+        {
+            return 0;           //无有效值
+        }
+        if(value.size() == 1)   //只有符号标志
+        {
+            if (value[0] == '+' || value[0] == '-')
+            {
+                return 0;
+            }
+            return value[0]-'0';
+        }
+        char signedChar = '+';
+        int64_t sum = 0; 
+        for( int i =0; i < value.size() ; i++)
+        {
+            char valuedChar = value[i];
+            if(valuedChar == '+')
+            {
+
+            }
+            else if(valuedChar == '-')
+            {
+                signedChar = '-';
+            }
+            else
+            {
+                int temp = valuedChar - '0';
+                sum = sum*10 + temp;    //求总和
+                int64_t  temp2 = sum - INT_MAX-1;
+                if (temp2 >= 0)
+                {
+                    break;
+                }
+            }
+        }
+
+        int64_t max = sum - INT_MAX; //计算绝对值
+        int64_t min = sum - INT_MAX-1;
+        if(signedChar == '-')
+        {
+           if(max > 0)
+           {
+               return INT_MIN;
+           }
+            else
+           {
+               return -sum;
+           }
+        }
+        else
+        {
+            if (min >= 0)
+            {
+                return INT_MAX;
+            }
+            
+            return sum;
+        }
+    }
+
+    int myAtoi(string str) {
+        bool firstCharIsSigned = false; //第一个字符是符号标志
+        bool hasValuedChar = false;     //已经有存储的有效数字
+        vector<char> value;      //存储有效字符
+        for(string::iterator itor = str.begin(); itor != str.end(); )
+        {
+            if(*itor == ' ')
+            {
+                if(hasValuedChar || firstCharIsSigned)
+                {
+                    break;
+                }
+                itor++;
+                continue;
+            }
+            if(*itor == '+' || *itor == '-')
+            {
+                if(!firstCharIsSigned && !hasValuedChar)
+                {
+                    firstCharIsSigned = true;
+                    value.push_back(*itor);
+                    itor++;
+                    continue;
+                }
+                break;
+            }
+            else if(*itor >= '0' && *itor <= '9')
+            {
+                hasValuedChar = true;  
+                value.push_back(*itor);
+                itor++;
+                continue;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        return valuedAtoi(value);
+    }
+};
+
+void TestSolution5()
+{
+    string test ="18446744073709551617";
+    int value = Solution10().myAtoi(test);
 }
 
 int _tmain(int argc, _TCHAR* argv[])

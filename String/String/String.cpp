@@ -350,6 +350,50 @@ void TestSolution5()
 	int index = Solution().strStr(a,b);
 }
 
+//数数并说
+class Solution5 {
+public:
+	
+    //思想，统计上一个数的各个数字出现的次数，将次数和对应的值记录下来，
+    //如： 4：1211
+    //则： 5：从左往右统计4对应的值，出现1个1，1个2，2个1； 
+    //结果 5：111221
+   string countAndSay(int n) {
+    string s="1";
+    int count=1;
+    while(n>1)
+    {
+        string tmp="";
+        for(int i=0;i<s.size();)
+        {
+            int j=i+1;
+            for(;j<s.size();++j)
+            {
+                if (s[i] == s[j])
+                {
+                    count++;
+                } 
+                else
+                {
+                    break;
+                }
+            } 
+            tmp.push_back(char(count+'0'));
+            tmp.push_back(s[i]);
+            i=j;
+            count=1;
+        } 
+        n--;
+        s=tmp;
+    }
+    return s;
+        }
+};
+void TestSolution5()
+{
+    string result = Solution5().countAndSay(5);
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	TestSolution();

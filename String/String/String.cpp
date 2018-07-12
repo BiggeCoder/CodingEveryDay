@@ -307,6 +307,49 @@ void TestSolution5()
     int value = Solution10().myAtoi(test);
 }
 
+//实现strStr
+class Solution5 {
+public:
+    int strStr(string haystack, string needle) {
+        if(needle.size() == 0 )
+        {
+            return 0;
+        }
+        if(needle.size() > haystack.size())
+        {
+            return -1;
+        }
+        int substrlen = needle.size();
+        int haystacklen = haystack.size();
+        for( int startlen = 0, endlen = substrlen; endlen <= haystacklen; )
+        {
+            string substr;  //起始位置和结束位置相同，列：两个字符串都只有一个字符
+            if (startlen == endlen)
+            {
+                substr = haystack[startlen];
+            } 
+            else
+            {
+                substr = haystack.substr(startlen, endlen); 
+            }
+            if( memcmp(substr.c_str(),needle.c_str(),needle.size()) == 0 )
+            {
+                return startlen;
+            }
+            startlen++;
+            endlen++;
+        }
+        return -1;
+    }
+};
+
+void TestSolution5()
+{
+	string a = "aaa";
+	string b = "aa";
+	int index = Solution().strStr(a,b);
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	TestSolution();

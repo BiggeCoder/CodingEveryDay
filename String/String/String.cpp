@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
-
+#include "stdint.h"
 using namespace std;
 
 //反转字符串
@@ -189,7 +189,7 @@ public:
 void TestSolution4()
 {
     string str = "A man, a plan, a canal: Panama";
-    bool isPalindrome = Solution3().isPalindrome(str);
+    bool isPalindrome = Solution4().isPalindrome(str);
 }
 
 //atoi转换
@@ -304,11 +304,11 @@ public:
 void TestSolution5()
 {
     string test ="18446744073709551617";
-    int value = Solution10().myAtoi(test);
+    int value = Solution5().myAtoi(test);
 }
 
 //实现strStr
-class Solution5 {
+class Solution6 {
 public:
     int strStr(string haystack, string needle) {
         if(needle.size() == 0 )
@@ -343,15 +343,15 @@ public:
     }
 };
 
-void TestSolution5()
+void TestSolution6()
 {
 	string a = "aaa";
 	string b = "aa";
-	int index = Solution().strStr(a,b);
+	int index = Solution6().strStr(a,b);
 }
 
 //数数并说
-class Solution5 {
+class Solution7 {
 public:
 	
     //思想，统计上一个数的各个数字出现的次数，将次数和对应的值记录下来，
@@ -390,12 +390,12 @@ public:
         }
 };
 
-void TestSolution5()
+void TestSolution7()
 {
-    string result = Solution5().countAndSay(5);
+    string result = Solution7().countAndSay(5);
 }
 
-class Solution6 {
+class Solution8 {
 public:
      string longestCommonPrefix(vector<string>& strs) {
         if(strs.size() < 1)
@@ -438,61 +438,73 @@ public:
     }
 };
 
-void Solution6()
+void TestSolution8()
 {
      vector<string> test;
      test.push_back("asdfg");
      test.push_back("asdf");
-     string result = solution6().longestCommonPrefix(test);
+     string result = Solution8().longestCommonPrefix(test);
 }
 
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
+
+ //Definition for singly-linked list.
+ struct ListNode {
+	 int val;
+	 ListNode *next;
+	 ListNode(int x) : val(x), next(NULL) {}
+ };
+
+class Solution9 {
 public:
    
     ListNode* removeNthFromEnd(ListNode* head, int n) {
-        ListNode *preNode = head;
-        ListNode *curNode = head;
+		ListNode *myHead = new ListNode(0);
+		myHead->next = head;
+        ListNode *preNode = myHead;
+        ListNode *curNode = myHead;
         for(int i = 0; i < n; i++)
         {
             //已保证输入有效
             preNode = preNode->next;
         }
-        while(true)
-        {
-            if(preNode->next != NULL) 
-            {
-                preNode = preNode->next;
-                curNode = curNode->next;
-            }
-            else
-            {
-                curNode->val = curNode->next->val;
-                ListNode *temp = curNode;
-                curNode->next = curNode->next->next; 
-                return head; 
-            }
-        }
-        
-        
+		while(preNode->next != NULL ) 
+		{
+			preNode = preNode->next;
+			curNode = curNode->next;
+		}
+		preNode = curNode->next;
+		curNode->next = curNode->next->next;
+        return head;     
     }
 };
 
+void TestSolution9()
+	{
+	ListNode *a1 = new ListNode(1);
+ 	ListNode *a2 = new ListNode(2);
+ 	ListNode *a3 = new ListNode(3);
+	ListNode *a4 = new ListNode(4);
+ 	ListNode *a5 = new ListNode(5);
+ 	a1->next = a2;
+	a2->next = a3;
+	a3->next = a4;
+ 	a4->next = a5;
+	Solution9().removeNthFromEnd(a1,2);
+
+}
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	TestSolution();
-        TestSolution1();
-        TestSolution2();
-        TestSolution3();
-        TestSolution4();
+	TestSolution1();
+	TestSolution2();
+	TestSolution3();
+	TestSolution4();
+	TestSolution5();
+	TestSolution6();
+	TestSolution7();
+	TestSolution8();
+	TestSolution9();
 	return 0;
 }
 

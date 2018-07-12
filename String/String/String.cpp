@@ -446,6 +446,46 @@ void Solution6()
      string result = solution6().longestCommonPrefix(test);
 }
 
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+   
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode *preNode = head;
+        ListNode *curNode = head;
+        for(int i = 0; i < n; i++)
+        {
+            //已保证输入有效
+            preNode = preNode->next;
+        }
+        while(true)
+        {
+            if(preNode->next != NULL) 
+            {
+                preNode = preNode->next;
+                curNode = curNode->next;
+            }
+            else
+            {
+                curNode->val = curNode->next->val;
+                ListNode *temp = curNode;
+                curNode->next = curNode->next->next; 
+                return head; 
+            }
+        }
+        
+        
+    }
+};
+
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	TestSolution();

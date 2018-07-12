@@ -389,9 +389,61 @@ public:
     return s;
         }
 };
+
 void TestSolution5()
 {
     string result = Solution5().countAndSay(5);
+}
+
+class Solution6 {
+public:
+     string longestCommonPrefix(vector<string>& strs) {
+        if(strs.size() < 1)
+        {
+            return "";
+        }
+        else if(strs.size() == 1)
+        {
+            return strs[0];
+        }
+        string comPrefix = strs[0];
+        int comIndex = comPrefix.size();
+        for(vector<string>::iterator itor = strs.begin()+1; itor != strs.end(); itor++)
+        {
+            for(int strlen = 0; (strlen < comIndex); strlen++)
+            {
+                if (!(strlen < (*itor).size()))
+                {
+                    comIndex = strlen;
+                    break;
+                }
+                if(comIndex <= 0)
+                {
+                    return "";
+                }
+                char left = (*itor).c_str()[strlen];
+                char right = comPrefix.c_str()[strlen];
+                if( left != right )
+                {
+                    comIndex = strlen ;
+                }
+            }
+        }
+        string result = "";
+        for(int i = 0; i < comIndex; i++)
+        {
+            result.push_back(comPrefix[i]);
+        }
+        return result;
+    }
+};
+
+void Solution6()
+{
+     vector<string> test;
+     test.push_back("asdfg");
+     test.push_back("asdf");
+     string result = solution6().longestCommonPrefix(test);
 }
 
 int _tmain(int argc, _TCHAR* argv[])
